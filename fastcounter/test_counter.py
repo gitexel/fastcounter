@@ -6,6 +6,9 @@ counter_classes = (
     fastcounter.Counter,
     fastcounter.FastReadCounter,
     fastcounter.FastWriteCounter,
+    fastcounter.CyCounter,
+    fastcounter.CyFastReadCounter,
+    fastcounter.CyFastWriteCounter,
 )
 
 
@@ -68,6 +71,13 @@ def test_counter_increment_step(counter_class):
 
 def test_fastwritecounter_cannot_set_value():
     c = fastcounter.FastWriteCounter(1)
+    assert c.value == 1
+    c.increment()
+    with pytest.raises(Exception):
+        c.value = 1
+
+def test_cyfastwritecounter_cannot_set_value():
+    c = fastcounter.CyFastWriteCounter(1)
     assert c.value == 1
     c.increment()
     with pytest.raises(Exception):
